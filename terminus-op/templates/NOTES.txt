@@ -1,1 +1,1 @@
-! Deployment succesful. TerminusDB was deployed.
+! Deployment succesful. TerminusDB was deployed. !

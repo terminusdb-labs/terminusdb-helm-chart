@@ -1,16 +1,22 @@
 replicaCount: 1
 
-image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  tag: ""
+statefulset:
+  port: 6363
+  image:
+    name: terminusdb/terminusdb-server
+    pullPolicy: Always
+    tag: ""
+
+persistent:
+  VolumeStorageSize: 2Gi
+  claimSize: 1Gi
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  create: true
+  create: false
   annotations: {}
   name: ""
 
@@ -19,10 +25,6 @@ podAnnotations: {}
 podSecurityContext: {}
 
 securityContext: {}
-
-service:
-  type: ClusterIP
-  port: 80
 
 ingress:
   enabled: false
@@ -43,9 +45,3 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}

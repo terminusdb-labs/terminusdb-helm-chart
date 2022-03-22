@@ -1,0 +1,9 @@
+apiVersion: v2
+name: terminus-op
+description: A helm chart for the Terminus Graph database
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+maintainers:
+  - name: TerminusDB Team
+    email: team@terminusdb.com

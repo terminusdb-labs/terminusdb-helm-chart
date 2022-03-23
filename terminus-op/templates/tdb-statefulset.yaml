@@ -15,12 +15,11 @@ spec:
     spec:
       containers:
       - name: terminus-db-{{.Release.Name}}
-        image: {{ .Values.statefulset.image.name}}
+        image: {{ .Values.statefulset.image.name}}{{.Values.statefulset.image.tag}}
         imagePullPolicy: {{ .Values.statefulset.image.pullPolicy}}
         ports:
         - containerPort: {{ .Values.statefulset.port}}
           name: access-port
-
         # We need to use Volume mounts if we are mounting secrets to the database instance.
 
         # volumeMounts:

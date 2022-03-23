@@ -7,6 +7,7 @@ statefulset:
     pullPolicy: Always
     tag: ""
 
+storageclassName: localpath
 persistent:
   VolumeStorageSize: 2Gi
   claimSize: 1Gi
@@ -45,3 +46,8 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
+mountOptions:
+  - ssd
+  - nfsvers=4.1
+
+path: "/tmp"

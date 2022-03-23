@@ -5,17 +5,14 @@ metadata:
 spec:
   claimRef:
     name: {{ .Release.Name}}-pvc
-  storageClassName: terminus-op-storage-class
+  storageClassName: {{ .Values.storageclassName}}
   capacity:
     storage: {{ .Values.persistent.VolumeStorageSize}}
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
-  storageClassName: terminus-op-storage-class
-  mountOptions:
-    - ssd
-    - nfsvers=4.1
-  nfs:
-    path: /tmp
-    server: 172.17.0.2
+  storageClassName: {{ .Values.storageclassName}}
+  mountOptions: {{ .Values.mountOptions}}
+  hostPath:
+    path: {{.Values.path}}

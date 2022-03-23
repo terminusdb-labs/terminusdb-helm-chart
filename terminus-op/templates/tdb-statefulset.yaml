@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name}}-sts-{{.Release.Namespace}}
+spec:
+  selector:
+    matchLabels:
+      app: {{.Release.Name }}-sts-{{.Release.Namespace }}
+  serviceName: {{.Release.Name}}-svc-{{.Release.Namespace}}
+  replicas: {{ .Values.replicaCount}}
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name }}-sts-{{.Release.Namespace }}
+    spec:
+      containers:
+      - name: terminus-db-{{.Release.Name}}
+        image: {{ .Values.statefulset.image.name}}{{.Values.statefulset.image.tag}}
+        imagePullPolicy: {{ .Values.statefulset.image.pullPolicy}}
+        ports:
+        - containerPort: {{ .Values.statefulset.port}}
+          name: access-port
+        # We need to use Volume mounts if we are mounting secrets to the database instance.
+
+        # volumeMounts:
+        # - name: www
+        #   mountPath: /usr/share/nginx/html
+
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Release.Name}}-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.persistent.claimSize}}
